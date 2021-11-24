@@ -10,7 +10,7 @@ import (
 
 var ip 	    = flag.String("ip", "127.0.0.1", "Own IP")
 var port    = flag.Int("port", 9080, "Port")
-var target  = flag.String("target", "127.0.0.1:9080", "Target")
+var target  = flag.String("target", "", "Target")
 
 var events = make(chan serf.Event)
 
@@ -31,7 +31,7 @@ func main() {
 	defer client.Shutdown()
 
 	// If target is not self.
-	if fmt.Sprintf("%s", *target) != fmt.Sprintf("%s:%d", *ip, *port) {
+	if *target != "" {
 		memberCount, err := client.Join([]string{ fmt.Sprintf("node-%s/%s", *target, *target) }, false)
 		if err != nil {
 			log.Fatalf("Failed to join ip. %v", err)
@@ -50,7 +50,7 @@ func main() {
 		time.Sleep(time.Second*10)
 		log.Printf("Currently have %d buddies.\n", client.NumNodes() - 1)
 		for _, member := range client.Members() {
-			log.Printf("\t%s\n", member.Name)
+			log.Printf("\t%s | %s:%d\n", member.Name, member.Addr, member.Port)
 		}
 	}
 }
