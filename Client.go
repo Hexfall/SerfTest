@@ -3,14 +3,11 @@ package main
 import (
 	"fmt"
 	"github.com/hashicorp/serf/serf"
-	"os"
-	"strconv"
-	"time"
 )
 
 var eventCh = make(chan serf.Event)
 
-func getConfig(ip string, port int) *serf.Config {
+/*func getConfig(ip string, port int) *serf.Config {
 	conf := serf.DefaultConfig()
 	conf.Init()
 
@@ -41,9 +38,9 @@ func getConfig(ip string, port int) *serf.Config {
 	conf.TombstoneTimeout = 1 * time.Microsecond
 
 	return conf
-}
+}*/
 
-func main() {
+/*func main() {
 	port, _ := strconv.Atoi(os.Args[2])
 	SerfClient, _ := serf.Create(getConfig(os.Args[1], port))
 	defer SerfClient.Shutdown()
@@ -60,7 +57,7 @@ func main() {
 			fmt.Println("\t" + member.Name)
 		}
 	}
-}
+}*/
 
 func eventHandler(ch *chan serf.Event) {
 	for {
