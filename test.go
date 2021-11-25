@@ -72,7 +72,7 @@ func getConfig(ip string, port int) *serf.Config {
 	conf.MemberlistConfig.SuspicionMult = 1
 
 	// Set a short reap interval so that it can run during the test
-	conf.ReapInterval = 1 * time.Second
+	conf.ReapInterval = 10 * time.Millisecond
 
 	// Set a short reconnect interval so that it can run a lot during tests
 	conf.ReconnectInterval = 100 * time.Millisecond
